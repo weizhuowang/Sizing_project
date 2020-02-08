@@ -16,7 +16,7 @@ function geninputs_test(fname_inputs,vars,guessmat)
     [AR,AWing] = deal(varscell{:});
     % ===============Inputs===============
     % >>>> Requirements <<<<
-    range_req = 7360; % nm
+    range_req = 4000; % nm
     BFL_req   = 8785; % ft
     Sland_req = 5702;
     % >>>> Vars <<<<
@@ -24,32 +24,32 @@ function geninputs_test(fname_inputs,vars,guessmat)
 %     AWing = 1000; % sq ft
 %     AR    = 6;   % 
         % Setup
-    WPayload  = 54000; % lb
-    MWPayload = 54000; % lb
+    WPayload  = 90000; % lb
+    MWPayload = 140000; % lb
     sweep = 31.6; % quater chord sweep angle deg
     taper = 0.149;
-    lFuse  = 2232; % in        %<==============
-    dFuse  = 216;  % in
+    lFuse  = 2532; % in        %<==============
+    dFuse  = 226;  % in
     lNose  = 312; % in
     lTail  = 648; % in
     Neng    = 2;
-    TW_IPPS = 3.75;                 %<==============
-    lNacel  = 172; % in
-    SFC     = 0.528; % lb/(lb-hr)  %<==============
+    TW_IPPS = 3.9;                 %<==============
+    lNacel  = 222; % in
+    SFC     = 0.508; % lb/(lb-hr)  %<==============
     Nz       = 3.75; % Ultimate load
     TC_avg   = 0.1089; % thickness average
     EASweep  = 31.6; % Not sure what this is
         % Wetted Area
     wetted = 2.05;
         % Delta Weights
-    WFuse_unit = 25;   % <===== Not sure
+    WFuse_unit = 35;   % <===== Not sure
     Htail_AW_trade = 6;
     Vtail_AW_trade = 5;
         % Performance
     WTOCratio = 0.97; % top of climb weight ratio
-    Altitude  = 39000; %TODO: different altitude 
+    Altitude  = 35000; %TODO: different altitude 
     DISA   = 0;
-    Mach   = 0.84;
+    Mach   = 0.80;
     ReserveRatio = 0.05;
     KRange  = 0.94;
     ROC_TOC = 300; % fpm
@@ -62,23 +62,29 @@ function geninputs_test(fname_inputs,vars,guessmat)
     Sigma = 1;
     % >>>> Seed Input <<<<
 %     TODO: Take seed wing area and calculate wing weight from area
-    WEmpty_seed  = 239833; % lb
-    WFuel_guess = guessmat(2);
+    AWing_seed = 3805;
+    WEmpty_seed  = 264500; % lb
+    WFuel_seed = 223378;
     AR_seed      = 9.67;
-    K_seed       = 1/(pi*0.83*AR_seed);
-    
+    K_seed       = 1/(pi*0.80*AR_seed);
+    Nz_seed      = 3.81;
+    EASweep_seed = 31.6;
+    TC_avg_seed  = 0.111;
+    taper_seed   = 0.18;
+        
     % Estimate wing weight
 %     WWing_seed = 81384;%60038;
-    MRW_seed   = WFuel_guess + WPayload + WEmpty_seed;
-    MZFW_seed  = WEmpty_seed + MWPayload;
-    span       = sqrt(AWing*AR); % ft
-    WWing_seed = (4.22*AWing) + (1.642e-6*Nz*span^3*sqrt(MRW_seed*MZFW_seed)*(1+2*taper))/(TC_avg*cosd(EASweep)^2*AWing*(1+taper));
+    MRW_seed   = WEmpty_seed + WFuel_seed + 18000; % +3500 lb diff
+    MZFW_seed  = WEmpty_seed + 90500;
+    span_seed  = sqrt(AWing_seed*AR_seed); % ft
+    WWing_seed = (4.22*AWing_seed) + (1.642e-6*Nz_seed*span_seed^3*sqrt(MRW_seed*MZFW_seed)*...
+                 (1+2*taper_seed))/(TC_avg_seed*cosd(EASweep_seed)^2*AWing_seed*(1+taper_seed));
     
     lFuse_seed   = 2232;
     AHtail_seed  = 832.95;%0.21891*AWing; % TODO: check these ratios in design
     AVtail_seed  = 427.96;%0.11247*AWing;
-    Thrust_seed  = 66600;
-    TW_IPPS_seed = 3.75;
+    Thrust_seed  = 64000;
+    TW_IPPS_seed = 3.72;
 %     Cf_seed      = 0.003; % TODO
 
     % ===============References===============
@@ -163,7 +169,7 @@ function [rho,viscosity,sigma,delta] = AltRho(h,DISA)
     end
     sigma = delta/theta;
     
-    temperature = 518.67*theta
+    temperature = 518.67*theta;
     rho = 0.0023769*sigma;
     viscosity = (2.2697e-8*temperature^1.5)/(temperature+198.72);
     

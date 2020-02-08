@@ -9,7 +9,7 @@ tmp_folder = 'C:\tempSolver\'; % Change this to any folder on your drive, PLEASE
 delete([tmp_folder,'*'])
 [fnInputs,fnIter] = deal([tmp_folder,'inputs.mat'],[tmp_folder,'iter.mat']);
 % guessmat = [77000,100000,0];
-guessmat = [62200,189071,0];
+guessmat = [77200,189071,0];
 
 % ARlist = [5:0.1:11];
 % AWinglist = [3500:100:9000];
@@ -17,7 +17,8 @@ guessmat = [62200,189071,0];
 % ==================Solve==================
 % solve for current input
 % tic;[Soln_total] = hw7_solve_contour(ARlist,AWinglist,guessmat,fnInputs,fnIter,false,tmp_folder);tm = toc;
-hw7_solve(guessmat,[9.67,3805],fnInputs,fnIter,1,0);
+% hw7_solve(guessmat,[8,4200],fnInputs,fnIter,1,0);
+hw7_solve(guessmat,[9.67,3800],fnInputs,fnIter,1,0);
 
 % load soln (if you want to see an example of all the input and outputs)
 load([tmp_folder,'iter.mat'])

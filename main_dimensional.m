@@ -9,10 +9,10 @@ tmp_folder = 'C:\tempSolver\'; % Change this to any folder on your drive, PLEASE
 delete([tmp_folder,'*.mat'])
 [fnInputs,fnIter] = deal('inputs.mat','iter.mat');
 % guessmat = [77000,100000,0];
-guessmat = [98000,263071,0];
+guessmat = [77000,180071,0];
 
-ARlist = [5:0.1:11];
-AWinglist = [3500:100:9000];
+ARlist = [4:0.1:11];
+AWinglist = [3000:100:5000];
 
 % ==================Solve==================
 % solve for current input

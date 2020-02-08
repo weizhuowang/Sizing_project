@@ -5,6 +5,7 @@ function [convergence,soln] = hw7_solve(guessmat,vars,fnInputs,fnIter,plotflg,G4
     if G450
         geninputs_G450(fnInputs,vars);
     else
+%         geninputs_787cal(fnInputs,vars,guessmat);
         geninputs_test(fnInputs,vars,guessmat);
 %         geninputs_AIAA(fnInputs,vars); % change this according to aircraft
     end
@@ -12,7 +13,7 @@ function [convergence,soln] = hw7_solve(guessmat,vars,fnInputs,fnIter,plotflg,G4
     load(fnInputs);
     
     % Repeat 25 steps to get converged result
-    for i = 1:25
+    for i = 1:50
 %         [FN_calc,WFuel_calc,DeltaWeight_calc] = hw7_iterFun(fnInputs,fnIter,guessmat);
         
         
@@ -88,6 +89,11 @@ function [convergence,soln] = hw7_solve(guessmat,vars,fnInputs,fnIter,plotflg,G4
         
         guessmat = [FN_calc,WFuel_calc,DeltaWeight_calc];
         logmat(end+1,:) = guessmat;
+        if i>1
+            if abs(logmat(end-1,1)-FN_calc) < 0.1
+                break
+            end
+        end
     end
     
     save(fnIter);
