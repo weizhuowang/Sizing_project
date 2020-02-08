@@ -18,18 +18,18 @@ function geninputs_test(fname_inputs,vars)
     % >>>> Requirements <<<<
     range_req = 7304; % nm
     BFL_req   = 13162; % ft
-    Sland_req = 502;
+    Sland_req = 5702;
     % >>>> Vars <<<<
         % Iterations
 %     AWing = 1000; % sq ft
 %     AR    = 6;   % 
         % Setup
     WPayload  = 54000; % lb
-    MWPayload = 65000; % lb
+    MWPayload = 90000; % lb
     sweep = 31.6; % quater chord sweep angle deg
     taper = 0.149;
-    lFuse  = 2868; % in        %<==============
-    dFuse  = 240;  % in
+    lFuse  = 2250; % in        %<==============
+    dFuse  = 21;  % in
     lNose  = 312; % in
     lTail  = 648; % in
     Neng    = 2;
@@ -38,11 +38,11 @@ function geninputs_test(fname_inputs,vars)
     SFC     = 0.487; % lb/(lb-hr)  %<==============
     Nz       = 3.75; % Ultimate load
     TC_avg   = 0.1089; % thickness average
-    EASweep  = 30.6; % Not sure what this is
+    EASweep  = 31.6; % Not sure what this is
         % Wetted Area
     wetted = 2.05;
         % Delta Weights
-    WFuse_unit = 50;   % <===== Not sure
+    WFuse_unit = 25;   % <===== Not sure
     Htail_AW_trade = 6;
     Vtail_AW_trade = 5;
         % Performance

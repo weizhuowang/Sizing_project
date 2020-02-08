@@ -16,8 +16,8 @@ function geninputs_test(fname_inputs,vars)
     [AR,AWing] = deal(varscell{:});
     % ===============Inputs===============
     % >>>> Requirements <<<<
-    range_req = 7304; % nm
-    BFL_req   = 13162; % ft
+    range_req = 7360; % nm
+    BFL_req   = 8785; % ft
     Sland_req = 5702;
     % >>>> Vars <<<<
         % Iterations
@@ -25,17 +25,17 @@ function geninputs_test(fname_inputs,vars)
 %     AR    = 6;   % 
         % Setup
     WPayload  = 54000; % lb
-    MWPayload = 90000; % lb
+    MWPayload = 54000; % lb
     sweep = 31.6; % quater chord sweep angle deg
     taper = 0.149;
-    lFuse  = 2250; % in        %<==============
-    dFuse  = 240;  % in
+    lFuse  = 2232; % in        %<==============
+    dFuse  = 216;  % in
     lNose  = 312; % in
     lTail  = 648; % in
     Neng    = 2;
-    TW_IPPS = 3.95;                 %<==============
+    TW_IPPS = 3.75;                 %<==============
     lNacel  = 172; % in
-    SFC     = 0.487; % lb/(lb-hr)  %<==============
+    SFC     = 0.528; % lb/(lb-hr)  %<==============
     Nz       = 3.75; % Ultimate load
     TC_avg   = 0.1089; % thickness average
     EASweep  = 31.6; % Not sure what this is
@@ -53,7 +53,7 @@ function geninputs_test(fname_inputs,vars)
     ReserveRatio = 0.05;
     KRange  = 0.94;
     ROC_TOC = 300; % fpm
-    Thrust_lapse = 0.142;
+    [~,~,~,Thrust_lapse] = AltRho(Altitude,DISA);
     KTO   = 38;
     Clmax = 1.89;
     Clmax_land = 2.49; % landing
@@ -61,14 +61,15 @@ function geninputs_test(fname_inputs,vars)
     Mu    = 0.45;
     Sigma = 1;
     % >>>> Seed Input <<<<
+%     TODO: Take seed wing area and calculate wing weight from area
     WEmpty_seed  = 239833; % lb
-    K_seed       = 0.06;
     AR_seed      = 9.67;
-    WWing_seed   = 60038;
+    K_seed       = 1/(pi*0.83*AR_seed);
+    WWing_seed   = 81384;%60038;
     lFuse_seed   = 2232;
-    AHtail_seed  = 832.95;%0.25*AWing;
-    AVtail_seed  = 427.96;%0.125*AWing;
-    Thrust_seed  = 62500;
+    AHtail_seed  = 832.95;%0.21891*AWing; % TODO: check these ratios in design
+    AVtail_seed  = 427.96;%0.11247*AWing;
+    Thrust_seed  = 66600;
     TW_IPPS_seed = 3.75;
 %     Cf_seed      = 0.003; % TODO
 
@@ -89,8 +90,8 @@ function geninputs_test(fname_inputs,vars)
     MAC   = 2/3*Cr*(1+taper+taper^2)/(1+taper); % in
 
     % >>>> Fuselage <<<<
-    AHtail = 0.25*AWing;  % sq ft
-    AVtail = 0.125*AWing; % sq ft
+    AHtail = 0.21891*AWing;  % sq ft
+    AVtail = 0.11247*AWing; % sq ft
 
     % >>>> Engine <<<<
     WEng_seed    = Thrust_seed/TW_IPPS_seed;
@@ -124,7 +125,7 @@ function geninputs_test(fname_inputs,vars)
     Cf   = 0.455/(log10(Re)^(2.58)*(1+0.144*Mach^2)^(0.65));
 %     Cf_seed      = Cf*1.2300123; % TODO
     Cf_seed = 0.0026*Cf/round(Cf,6);
-    K = 1/(pi*(1/(pi*K_seed*AR_seed))*AR);
+    K = K_seed*(AR_seed/AR);%1/(pi*(1/(pi*K_seed*AR_seed))*AR);
 
     % >>>> DELTA WEIGHTS <<<<
     DeltaWFuse = WFuse_unit*(lFuse-lFuse_seed);
@@ -143,7 +144,7 @@ function geninputs_test(fname_inputs,vars)
 end
 
 % Find density at certain altitude
-function [rho,viscosity,sigma] = AltRho(h,DISA)
+function [rho,viscosity,sigma,delta] = AltRho(h,DISA)
     
     if h<36089
         theta = 1-6.87535e-6*h+DISA;
@@ -157,5 +158,6 @@ function [rho,viscosity,sigma] = AltRho(h,DISA)
     temperature = 518.67*theta
     rho = 0.0023769*sigma;
     viscosity = (2.2697e-8*temperature^1.5)/(temperature+198.72);
+    
     
 end

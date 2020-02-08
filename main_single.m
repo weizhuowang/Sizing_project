@@ -4,8 +4,8 @@ clc,clear;
 addpath(genpath('.'))
 format shortG
 % ==================Inputs==================
-% tmp_folder = 'C:\tempSolver\'; % Change this to any folder on your drive, PLEASE use non-OneDrive location
-tmp_folder = '/Users/askker/tmp_folder/'
+tmp_folder = 'C:\tempSolver\'; % Change this to any folder on your drive, PLEASE use non-OneDrive location
+% tmp_folder = '/Users/askker/tmp_folder/'
 delete([tmp_folder,'*'])
 [fnInputs,fnIter] = deal([tmp_folder,'inputs.mat'],[tmp_folder,'iter.mat']);
 % guessmat = [77000,100000,0];
