@@ -8,7 +8,7 @@
 % FN can be per engine or total depend on your choice
 % TODO: Check single engine or total thrust/weight
 % WFuse_unit estimation
-function geninputs_test(fname_inputs,vars)
+function geninputs_test(fname_inputs,vars,guessmat)
     % This file generates parameters of the aircraft to solve
     % Use 777-300 as seed to generate result as comparison
     % ===============APIs===============
@@ -63,9 +63,17 @@ function geninputs_test(fname_inputs,vars)
     % >>>> Seed Input <<<<
 %     TODO: Take seed wing area and calculate wing weight from area
     WEmpty_seed  = 239833; % lb
+    WFuel_guess = guessmat(2);
     AR_seed      = 9.67;
     K_seed       = 1/(pi*0.83*AR_seed);
-    WWing_seed   = 81384;%60038;
+    
+    % Estimate wing weight
+%     WWing_seed = 81384;%60038;
+    MRW_seed   = WFuel_guess + WPayload + WEmpty_seed;
+    MZFW_seed  = WEmpty_seed + MWPayload;
+    span       = sqrt(AWing*AR); % ft
+    WWing_seed = (4.22*AWing) + (1.642e-6*Nz*span^3*sqrt(MRW_seed*MZFW_seed)*(1+2*taper))/(TC_avg*cosd(EASweep)^2*AWing*(1+taper));
+    
     lFuse_seed   = 2232;
     AHtail_seed  = 832.95;%0.21891*AWing; % TODO: check these ratios in design
     AVtail_seed  = 427.96;%0.11247*AWing;

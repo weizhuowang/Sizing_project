@@ -5,7 +5,7 @@ function [convergence,soln] = hw7_solve(guessmat,vars,fnInputs,fnIter,plotflg,G4
     if G450
         geninputs_G450(fnInputs,vars);
     else
-        geninputs_test(fnInputs,vars);
+        geninputs_test(fnInputs,vars,guessmat);
 %         geninputs_AIAA(fnInputs,vars); % change this according to aircraft
     end
     logmat   = [];
@@ -98,7 +98,11 @@ function [convergence,soln] = hw7_solve(guessmat,vars,fnInputs,fnIter,plotflg,G4
             plot(1:size(logmat,1),logmat(:,i)');grid on;hold on;
         end
     end
-    convergence = logmat(end,:)-logmat(end-1,:);
+    if size(logmat,1) > 1
+        convergence = logmat(end,:)-logmat(end-1,:);
+    else
+        convergence = 0;
+    end
     soln = guessmat;
   
 end
