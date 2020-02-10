@@ -16,9 +16,12 @@ guessmat = [77200,189071,0];
 
 % ==================Solve==================
 % solve for current input
-% tic;[Soln_total] = hw7_solve_contour(ARlist,AWinglist,guessmat,fnInputs,fnIter,false,tmp_folder);tm = toc;
-% hw7_solve(guessmat,[8,4200],fnInputs,fnIter,1,0);
-hw7_solve(guessmat,[9.67,3800],fnInputs,fnIter,1,0);
+% 777 Cal
+% hw7_solve(guessmat,[8.686,4605],fnInputs,fnIter,1,0);
+% 787 Cal
+% hw7_solve(guessmat,[9.67,3805],fnInputs,fnIter,1,0);
+% Our Design
+hw7_solve(guessmat,[7.5,3900],fnInputs,fnIter,1,0);
 
 % load soln (if you want to see an example of all the input and outputs)
 load([tmp_folder,'iter.mat'])

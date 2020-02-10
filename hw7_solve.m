@@ -6,6 +6,7 @@ function [convergence,soln] = hw7_solve(guessmat,vars,fnInputs,fnIter,plotflg,G4
         geninputs_G450(fnInputs,vars);
     else
 %         geninputs_787cal(fnInputs,vars,guessmat);
+%         geninputs_777cal(fnInputs,vars,guessmat);
         geninputs_test(fnInputs,vars,guessmat);
 %         geninputs_AIAA(fnInputs,vars); % change this according to aircraft
     end

@@ -8,7 +8,7 @@
 % FN can be per engine or total depend on your choice
 % TODO: Check single engine or total thrust/weight
 % WFuse_unit estimation
-function geninputs_test(fname_inputs,vars,guessmat)
+function geninputs_777cal(fname_inputs,vars,guessmat)
     % This file generates parameters of the aircraft to solve
     % Use 777-300 as seed to generate result as comparison
     % ===============APIs===============
@@ -16,28 +16,28 @@ function geninputs_test(fname_inputs,vars,guessmat)
     [AR,AWing] = deal(varscell{:});
     % ===============Inputs===============
     % >>>> Requirements <<<<
-    range_req = 4000; % nm
-    BFL_req   = 8785; % ft
-    Sland_req = 5702;
+    range_req = 5240; % nm
+    BFL_req   = 8300; % ft
+    Sland_req = 5600;
     % >>>> Vars <<<<
         % Iterations
 %     AWing = 1000; % sq ft
 %     AR    = 6;   % 
         % Setup
-    WPayload  = 110000; % lb
-    MWPayload = 110000; % lb
-    sweep = 31.6; % quater chord sweep angle deg
+    WPayload  = 66000; % lb
+    MWPayload = 120080; % lb
+    sweep = 31.64; % quater chord sweep angle deg
     taper = 0.149;
-    lFuse  = 2532; % in        %<==============
-    dFuse  = 226;  % in
-    lNose  = 312; % in
-    lTail  = 648; % in
+    lFuse  = 2509; % in        %<==============
+    dFuse  = 244;  % in
+    lNose  = 277; % in
+    lTail  = 556; % in
     Neng    = 2;
-    TW_IPPS = 3.9;                 %<==============
-    lNacel  = 172; % in
-    SFC     = 0.508; % lb/(lb-hr)  %<==============
+    TW_IPPS = 3.72;                 %<==============
+    lNacel  = 287.4; % in
+    SFC     = 0.545; % lb/(lb-hr)  %<==============
     Nz       = 3.75; % Ultimate load
-    TC_avg   = 0.1089; % thickness average
+    TC_avg   = 0.09; % thickness average
     EASweep  = 31.6; % Not sure what this is
         % Wetted Area
     wetted = 2.05;
@@ -49,43 +49,22 @@ function geninputs_test(fname_inputs,vars,guessmat)
     WTOCratio = 0.97; % top of climb weight ratio
     Altitude  = 35000; %TODO: different altitude 
     DISA   = 0;
-    Mach   = 0.80;
+    Mach   = 0.84;
     ReserveRatio = 0.05;
     KRange  = 0.94;
     ROC_TOC = 300; % fpm
     [~,~,~,Thrust_lapse] = AltRho(Altitude,DISA);
     KTO   = 38;
     Clmax = 1.89;
-    Clmax_land = 2.49; % landing
+    Clmax_land = 2.53; % landing
     Kland = 20;
     Mu    = 0.45;
     Sigma = 1;
+    
     % >>>> Seed Input <<<<
-%     TODO: Take seed wing area and calculate wing weight from area
-    AWing_seed = 3805;
-    WEmpty_seed  = 264500; % lb
-    WFuel_seed = 223378;
-    AR_seed      = 9.67;
-    K_seed       = 1/(pi*0.80*AR_seed);
-    Nz_seed      = 3.75;
-    EASweep_seed = 31.6;
-    TC_avg_seed  = 0.1089;
-    taper_seed   = 
-    
-    % Estimate wing weight
-%     WWing_seed = 81384;%60038;
-    MRW_seed   = WEmpty_seed + WFuel_seed + 18000; % +3500 lb diff
-    MZFW_seed  = WEmpty_seed + 90500;
-    span_seed  = sqrt(AWing_seed*9.67); % ft
-    WWing_seed = (4.22*AWing_seed) + (1.642e-6*Nz_seed*span_seed^3*sqrt(MRW_seed*MZFW_seed)*...
-                 (1+2*taper_seed))/(TC_avg_seed*cosd(EASweep_seed)^2*AWing_seed*(1+taper_seed));
-    
-    lFuse_seed   = 2232;
-    AHtail_seed  = 832.95;%0.21891*AWing; % TODO: check these ratios in design
-    AVtail_seed  = 427.96;%0.11247*AWing;
-    Thrust_seed  = 64000;
-    TW_IPPS_seed = 3.72;
-%     Cf_seed      = 0.003; % TODO
+    seedval = seed772();
+    [WWing_seed,lFuse_seed,AHtail_seed,AVtail_seed,Thrust_seed,...
+        TW_IPPS_seed,K_seed,AR_seed,WEmpty_seed] = deal(seedval{:});
 
     % ===============References===============
     % Stuff calculated from input that is fixed
@@ -104,9 +83,11 @@ function geninputs_test(fname_inputs,vars,guessmat)
     MAC   = 2/3*Cr*(1+taper+taper^2)/(1+taper); % in
 
     % >>>> Fuselage <<<<
-    AHtail = 0.21891*AWing;  % sq ft
-    AVtail = 0.11247*AWing; % sq ft
-
+%     AHtail = 0.21891*AWing;  % sq ft
+%     AVtail = 0.11247*AWing; % sq ft
+    AHtail = 0.2367*AWing;  % sq ft
+    AVtail = 0.12443*AWing; % sq ft
+    
     % >>>> Engine <<<<
     WEng_seed    = Thrust_seed/TW_IPPS_seed;
     
