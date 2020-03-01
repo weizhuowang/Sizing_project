@@ -37,7 +37,7 @@ function [convergence,soln] = hw7_solve(guessmat,vars,fnInputs,fnIter,plotflg,G4
         % >>>> Engine <<<<
         Thrust_TO = FN_guess;
         dFan      = 2*sqrt(0.118*Thrust_TO/pi); % in
-        dNacel    = dFan+24; % in
+        dNacel    = dFan*1.25; % in
         W_IPPS = Thrust_TO/TW_IPPS;
         % >>>> WETTED AREA <<<<
         ANacel_wet = Neng*0.89097*((2*pi*(dNacel/24)*(lNacel/12)+pi*(dNacel/24)^2)-pi*(dFan/24)^2);
@@ -52,7 +52,7 @@ function [convergence,soln] = hw7_solve(guessmat,vars,fnInputs,fnIter,plotflg,G4
         Cd = Cd0 + K*Cl^2;
         LD = Cl/Cd;
 
-        WReserve = ReserveRatio*(WEmpty + WPayload); % shouldn't that be 0.05*WFuel?
+        WReserve = ReserveRatio*WFuel_guess; % shouldn't that be 0.05*WFuel? YES (WEmpty + WPayload)
         WFuelUseable = WFuel_guess-WReserve;
         Range_calc = KRange*KTAS*LD/SFC*log(MRW/(WEmpty+WPayload+WReserve));
 
@@ -77,7 +77,8 @@ function [convergence,soln] = hw7_solve(guessmat,vars,fnInputs,fnIter,plotflg,G4
         WLTOratio = MLDW/MRW; % take off, land ratio
         Wing_Loading_L = MLDW/AWing;
         TW_L = FN_guess*Neng/MLDW;
-        Slanding = Sair + Kland*Wing_Loading_L*1/(Sigma*Clmax_land*Mu);% LFL
+        Slanding_MLDW = Sair + Kland*Wing_Loading_L*1/(Sigma*Clmax_land*Mu);% LFL @ MLDW
+        Slanding = Sair + Kland*((MZFW + WReserve)/AWing)*1/(Sigma*Clmax_land*Mu);% LFL @ RFP req
         
         MLDW_Frac_calc = MLDW_calc/MRW;
                 

@@ -21,12 +21,15 @@ guessmat = [77200,189071,0];
 % 787 Cal
 % hw7_solve(guessmat,[9.67,3805],fnInputs,fnIter,1,0);
 % Our Design
-hw7_solve(guessmat,[7.5,3900],fnInputs,fnIter,1,0);
+hw7_solve(guessmat,[9,3660],fnInputs,fnIter,1,0);
+% hw7_solve(guessmat,[7.5,3900],fnInputs,fnIter,1,0);
 
 % load soln (if you want to see an example of all the input and outputs)
 load([tmp_folder,'iter.mat'])
 
 logmat
+
+save('Params.mat')
 
 %% ============Helper Functions===============
 
@@ -57,5 +60,11 @@ end
 function [MRW,WFuel_calc,WEmpty] = logdata(fnit)
 
     load(fnit);
+
+end
+
+function runperf()
+
+    run(fname)
 
 end

@@ -8,6 +8,8 @@
 % FN can be per engine or total depend on your choice
 % TODO: Check single engine or total thrust/weight
 % WFuse_unit estimation
+
+
 function geninputs_test(fname_inputs,vars,guessmat)
     % This file generates parameters of the aircraft to solve
     % Use 777-300 as seed to generate result as comparison
@@ -18,14 +20,14 @@ function geninputs_test(fname_inputs,vars,guessmat)
     % >>>> Requirements <<<<
     range_req = 4000; % nm
     BFL_req   = 9000; % ft
-    Sland_req = 9000;
+    Sland_req = 8500;
     % >>>> Vars <<<<
         % Iterations
 %     AWing = 1000; % sq ft
 %     AR    = 6;   % 
         % Setup
     WPayload  = 94300; % lb
-    MWPayload = 113160; % lb
+    MWPayload = 150000; % lb
     sweep = 25; % quater chord sweep angle deg
     taper = 0.150;
     lFuse  = 2645; % in        %<==============
@@ -59,7 +61,7 @@ function geninputs_test(fname_inputs,vars,guessmat)
     Clmax_land = 2.49; % landing
     Kland = 20;
     Mu    = 0.45;
-    Sigma = 1;
+%     Sigma = 1;
     
     % >>>> Seed Input <<<<
     seedval = seed788();
@@ -110,7 +112,7 @@ function geninputs_test(fname_inputs,vars,guessmat)
     AFuse_wet  = ATail_ogive + ANose_ogive + ABarrel;
 
     % >>>> Air Data <<<<
-%     [~,~,Sigma] = AltRho(0,0);
+    [~,~,Sigma] = AltRho(0,15/288)
     [rho,visc] = AltRho(Altitude,DISA);
     
     Re   = rho*VTAS*Cr/12/visc;
@@ -141,7 +143,7 @@ function [rho,viscosity,sigma,delta] = AltRho(h,DISA)
     
     if h<36089
         theta = 1-6.87535e-6*h+DISA;
-        delta = theta^5.2561;
+        delta = (theta-DISA)^5.2561;
     else
         theta = 0.75187+DISA;
         delta = 0.22336*exp((36089-h)/20806.7);

@@ -3,23 +3,29 @@
 % Inits
 clc,clear;
 format shortG
+addpath(genpath('.'))
 delete('C:\tempSolver\*')
+tmp_folder = 'C:\tempSolver\'
+% tmp_folder = '/Users/askker/tmp_folder/'
 [fnInputs,fnIter] = deal('inputs.mat','iter.mat');
 guessmat = [77000,100000,0];
 
 % solve for current input
 ARlist = [5:0.25:12];
 AWinglist = [2000:500:10000];
-[Soln_TO,Soln_L,Soln_C] = hw7_solve_contour(ARlist,AWinglist,guessmat,fnInputs,fnIter,false);
+[Soln_TO,Soln_L,Soln_C] = hw7_solve_contour(ARlist,AWinglist,guessmat,fnInputs,fnIter,false,tmp_folder);
 
 % load soln
 load(['C:\tempSolver\101',fnIter])
+% load([tmp_folder,fnIter])
 
 %%
-patchpts_good = [-20  , 87.4 ,213.8 ,235.7 , 235.7 ,-20;
-                 0.257, 0.257, 0.62 ,0.6799, 2 , 2];
-patchpts_bad = [-20  , 87.4 ,213.8, 235.7 ,  235.7 ,700 ,700, -20;
-                0.257, 0.257, 0.62, 0.6799 ,   2   , 2 ,  -2 ,  -2];
+TWmin = 0.2462;TWmid = 0.4915; TWmax = 0.54;
+WSmin = 110.1; WSmid = 220; WSmax = 241.5;
+patchpts_good = [-20  , WSmin ,WSmid ,WSmax , WSmax ,-20;
+                 TWmin, TWmin, TWmid ,TWmax, 2 , 2];
+patchpts_bad = [-20  , WSmin ,WSmid, WSmax ,  WSmax ,700 ,700, -20;
+                TWmin, TWmin, TWmid, TWmax ,   2   , 2 ,  -2 ,  -2];
 figure(1);clf
 patch(patchpts_good(1,:),patchpts_good(2,:),'g','FaceAlpha',0.3);hold on;
 patch(patchpts_bad(1,:),patchpts_bad(2,:),'r','FaceAlpha',0.3);hold on;
@@ -38,7 +44,7 @@ xlim([00,250]);ylim([0.1,1])
 
 %% ============Helper Functions===============
 
-function [Soln_TO,Soln_L,Soln_C] = hw7_solve_contour(Xlist,Ylist,guessmat,fnInputs,fnIter,plot)
+function [Soln_TO,Soln_L,Soln_C] = hw7_solve_contour(Xlist,Ylist,guessmat,fnInputs,fnIter,plot,tmp_folder)
 
     Soln_TO = zeros(length(Xlist)*length(Ylist),2); Soln_L = zeros(length(Xlist)*length(Ylist),2);
     for yid = 1:length(Ylist) % y
@@ -46,7 +52,8 @@ function [Soln_TO,Soln_L,Soln_C] = hw7_solve_contour(Xlist,Ylist,guessmat,fnInpu
             [x,y] = deal(Xlist(xid),Ylist(yid));
             fprintf('x = %5.1f | y = %5.1f\n',[x,y])
             inputvars = [x,y];
-            fnip = ['C:\tempSolver\',num2str(yid*100+xid),fnInputs];fnit = ['C:\tempSolver\',num2str(yid*100+xid),fnIter];
+            fnip = [tmp_folder,num2str(yid*100+xid),fnInputs];
+            fnit = [tmp_folder,num2str(yid*100+xid),fnIter];
             hw7_solve(guessmat,inputvars,fnip,fnit,plot,0);
             idx = (yid-1)*length(Xlist)+xid;
             [Soln_TO(idx,:),Soln_L(idx,:),Soln_C(idx,:)] = logdata(fnit);
