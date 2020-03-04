@@ -27,7 +27,7 @@ W_NAC_GROUP_EST     = 4888.47861;%(lb)
 W_MZFW_EST          = 420598.9716;%(lb)
 WING_MAX_THICKNESS  = 12;%(%) Percent Root Chord
 WING_MAX_T_POS      = 37;%(%) Percent Root Chord
-WING_AIRFOIL        = 'TBD';% Airfoil Name
+WING_AIRFOIL        = 'SC-0412';% Airfoil Name
 HTAIL_CR            = 'TBD';%(in)
 HTAIL_CT            = 'TBD';%(in)
 HTAIL_TAPER         = .15;%(--)
@@ -35,7 +35,7 @@ HTAIL_MAX_T_CR      = 2.375;%(in) Max thickness at root
 HTAIL_SPAN          = 38.6;%(ft)
 HTAIL_SWEEP         = 25;%(deg)
 HTAIL_AR            = 3.5;%(--)
-HTAIL_AIRFOIL       = 'TBD';% Airfoil Name
+HTAIL_AIRFOIL       = 'NACA0012';% Airfoil Name
 VTAIL_CR            = 'TBD';%(in)
 VTAIL_CT            = 'TBD';%(in)
 VTAIL_TAPER         = .15;%(--)
@@ -43,7 +43,7 @@ VTAIL_MAX_T_CR      = 1.875;%(in) Max thickness at root
 VTAIL_SPAN          = 30;%(ft)
 VTAIL_SWEEP         = 25;%(deg)
 VTAIL_AR            = 2.05;%(--)
-VTAIL_AIRFOIL       = 'TBD';% Airfoil Name
+VTAIL_AIRFOIL       = 'NACA0012';% Airfoil Name
 ENGINE_NAME         = 'TBD';
 ENGINE_WEIGHT       = 'TBD';%(lb)
 ENGINE_P2           = 'TBD';%(psi) Static Pressure Entering Compressor
@@ -58,12 +58,12 @@ Y_HTAIL             = 'TBD';%(in) Distance of htail (center of root chord) to fr
 A_RUDDER            = 'TBD';%(ft^2) Area Rudder
 P_D_PSI             = 'TBD';%(psi) Design Dive Dynamic Pressure
 V_D_KEAS            = 'TBD';%(keas) Design Dive Speed
-GEAR_HEIGHT         = 'TBD';%(ft)
-Y_GEAR_NOSE         = 'TBD';%(ft) Distance frome nose to front gear
-Y_GEAR_REAR         = 'TBD';%(ft) Distance frome nose to rear gear
-X_GEAR_REAR         = 'TBD';%(ft) Gear Span
-V_PAX_CABIN         = 'TBD';%(ft^3) Volume Pax Cabin
-Z_PAX_CABIN         = 'TBD';%(ft) Max Height Pax Cabin
+GEAR_HEIGHT         = 22.39;%(ft)
+Y_GEAR_NOSE         = 20.00;%(ft) Distance frome nose to front gear
+Y_GEAR_REAR         = 111.00;%(ft) Distance frome nose to rear gear
+X_GEAR_REAR         = 16.79;%(ft) Gear Span
+V_PAX_CABIN         = 2800;%(ft^3) Volume Pax Cabin
+Z_PAX_CABIN         = 6.5;%(ft) Max Height Pax Cabin
 RANGE               = range_req;%(nmi)
 PAX                 = 400;%(--)
 CREW                = 10;%(--)
@@ -73,12 +73,33 @@ CREW_SEATS_CP       = 3;%(--) Crew seats in cockpit (including jump seat)
 P_CABIN_CRUISE      = 5.16;%(psi) pressure in main cabin at cruise alt.
 V_CARGO             = 650;%(ft^3) total volume cargo holde
 V_FUEL              = 2600;%(ft^3) total volume fuel tanks
+WING_TWIST          = -3;%(deg) geometric twist
+HTAIL_INC_ANG       = 0;%(deg)  Htail Incidence Angle         
+HTAIL_R             = 96.98;%(ft) Htail moment arm            
+VTAIL_R             = 92.58;%(ft) Vtail moment arm            
+ELV_MAC             = 5.49;%(ft) Elevator MAC            
+ELV_SPAN            = 56.3;%(ft) Elevator Span         
+ELV_ANG             = 30;%(deg) Elevator deflection angle +/-   
+RDDR_MAC            = 6.35;%(ft) Rudder MAC           
+RDDR_SPAN           = 22.23;%(ft) Rudder Span              
+RDDR_ANG            = 30;%(deg) Rudder deflection angle +/-               
+AILER_MAC           = 5.24;%(ft) Aileron MAC                  
+AILER_SPAN          = 74.42; %(ft) Aileron Span            
+AILER_ANG           = 30; %(deg) Aileron deflection angle +/-   
+MAIN_DECK_HEIGHT    = 180;%(in) Height of main deck from bottom of fuselage
+LWR_DECK_HEIGHT     = 116;%(in) Height of lower deck from bottom of fuselage
+HTAIL_VOL_COEF      = .87;%(--) Htail volume coefficient 
+VTAIL_VOL_COEF      = .05;%(--) Vtail volume coefficient 
+HTAIL_MAC           = 13.72;%(ft) Htail MAC
+VTAIL_MAC           = 'TBD';%(ft) Htail MAC
+
 %% Create Column of Parameter Values (doubles)
            
 paramCount = 1;
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
+% Weights
 ParamValues{paramCount,1} = (MRW-3000);          paramCount =  paramCount+1;
 ParamValues{paramCount,1} = MRW;                 paramCount =  paramCount+1;
 ParamValues{paramCount,1} = MZFW;                paramCount =  paramCount+1;
@@ -92,6 +113,7 @@ ParamValues{paramCount,1} = W_IPPS;              paramCount =  paramCount+1;
 ParamValues{paramCount,1} = WEngClimb_IPPS;      paramCount =  paramCount+1;
 ParamValues{paramCount,1} = WEng;                paramCount =  paramCount+1;
 ParamValues{paramCount,1} = MWPayload;           paramCount =  paramCount+1;
+%Mass Prop Data
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = W_WING_GROUP_EST;    paramCount =  paramCount+1;
 ParamValues{paramCount,1} = W_GEAR_GROUP_EST;    paramCount =  paramCount+1;
@@ -101,6 +123,7 @@ ParamValues{paramCount,1} = W_FUSE_GROUP_EST;    paramCount =  paramCount+1;
 ParamValues{paramCount,1} = W_FIXEQP_GROUP_EST;  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = W_NAC_GROUP_EST;     paramCount =  paramCount+1;
 ParamValues{paramCount,1} = W_MZFW_EST;          paramCount =  paramCount+1;
+%Aero
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = LD;                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = AR;                  paramCount =  paramCount+1;
@@ -116,11 +139,16 @@ ParamValues{paramCount,1} = Clmax_land;          paramCount =  paramCount+1;
 ParamValues{paramCount,1} = WING_MAX_THICKNESS;  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = WING_MAX_T_POS;      paramCount =  paramCount+1;
 ParamValues{paramCount,1} = WING_AIRFOIL;        paramCount =  paramCount+1;
+ParamValues{paramCount,1} = WING_TWIST;        paramCount =  paramCount+1;
+ParamValues{paramCount,1} = K;        paramCount =  paramCount+1;
+ParamValues{paramCount,1} = Cd0;        paramCount =  paramCount+1;
+%Fuselage and Tail
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = lFuse;               paramCount =  paramCount+1;
 ParamValues{paramCount,1} = dFuse;               paramCount =  paramCount+1;
 ParamValues{paramCount,1} = lNose;               paramCount =  paramCount+1;
 ParamValues{paramCount,1} = lTail;               paramCount =  paramCount+1;
+ParamValues{paramCount,1} = HTAIL_VOL_COEF;               paramCount =  paramCount+1;
 ParamValues{paramCount,1} = AHtail;              paramCount =  paramCount+1;
 ParamValues{paramCount,1} = HTAIL_CR;            paramCount =  paramCount+1;
 ParamValues{paramCount,1} = HTAIL_CT;            paramCount =  paramCount+1;
@@ -129,7 +157,9 @@ ParamValues{paramCount,1} = HTAIL_MAX_T_CR;      paramCount =  paramCount+1;
 ParamValues{paramCount,1} = HTAIL_SPAN;          paramCount =  paramCount+1;
 ParamValues{paramCount,1} = HTAIL_SWEEP;         paramCount =  paramCount+1;
 ParamValues{paramCount,1} = HTAIL_AR;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = HTAIL_MAC;            paramCount =  paramCount+1;
 ParamValues{paramCount,1} = HTAIL_AIRFOIL;       paramCount =  paramCount+1;
+ParamValues{paramCount,1} = VTAIL_VOL_COEF;               paramCount =  paramCount+1;
 ParamValues{paramCount,1} = AVtail;              paramCount =  paramCount+1;
 ParamValues{paramCount,1} = VTAIL_CR;            paramCount =  paramCount+1;
 ParamValues{paramCount,1} = VTAIL_CT;            paramCount =  paramCount+1;
@@ -138,7 +168,9 @@ ParamValues{paramCount,1} = VTAIL_MAX_T_CR;      paramCount =  paramCount+1;
 ParamValues{paramCount,1} = VTAIL_SPAN;          paramCount =  paramCount+1;
 ParamValues{paramCount,1} = VTAIL_SWEEP;         paramCount =  paramCount+1;
 ParamValues{paramCount,1} = VTAIL_AR;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = VTAIL_MAC;            paramCount =  paramCount+1;
 ParamValues{paramCount,1} = VTAIL_AIRFOIL;       paramCount =  paramCount+1;
+%Propulsion
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Neng;                paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Thrust_TO;           paramCount =  paramCount+1;
@@ -157,12 +189,14 @@ ParamValues{paramCount,1} = APU_NAME;            paramCount =  paramCount+1;
 ParamValues{paramCount,1} = APU_WEIGHT;          paramCount =  paramCount+1;
 ParamValues{paramCount,1} = APU_MAX_DIAMETER;    paramCount =  paramCount+1;
 ParamValues{paramCount,1} = APU_MAX_LENGHT;      paramCount =  paramCount+1;
+%Structures
 ParamValues{paramCount,1} = '' ;                 paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Nz;                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = TC_avg;              paramCount =  paramCount+1;
 ParamValues{paramCount,1} = sweep;               paramCount =  paramCount+1;
 ParamValues{paramCount,1} = WWingSTR;            paramCount =  paramCount+1;
 ParamValues{paramCount,1} = WWingStuff;          paramCount =  paramCount+1;
+%Wetted Area
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = AWing_wet;           paramCount =  paramCount+1;
 ParamValues{paramCount,1} = AHtail_wet;          paramCount =  paramCount+1;
@@ -184,6 +218,7 @@ ParamValues{paramCount,1} = Atotal_wet;          paramCount =  paramCount+1;
 ParamValues{paramCount,1} = SwetSref;            paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Reft;                paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Re;                  paramCount =  paramCount+1;
+%S&C
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Y_WING;              paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Y_VTAIL;             paramCount =  paramCount+1;
@@ -191,16 +226,31 @@ ParamValues{paramCount,1} = Y_HTAIL;             paramCount =  paramCount+1;
 ParamValues{paramCount,1} = A_RUDDER;            paramCount =  paramCount+1;
 ParamValues{paramCount,1} = P_D_PSI;             paramCount =  paramCount+1;
 ParamValues{paramCount,1} = V_D_KEAS;            paramCount =  paramCount+1;
+
+ParamValues{paramCount,1} = HTAIL_INC_ANG;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = HTAIL_R;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = VTAIL_R;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = ELV_MAC;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = ELV_SPAN;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = ELV_ANG;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = RDDR_MAC;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = RDDR_SPAN;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = RDDR_ANG;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = AILER_MAC;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = AILER_SPAN;            paramCount =  paramCount+1;
+ParamValues{paramCount,1} = AILER_ANG;            paramCount =  paramCount+1;
+%Perf.
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Mach;                paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Altitude;            paramCount =  paramCount+1;
+%Landing Gear
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
 ParamValues{paramCount,1} = GEAR_HEIGHT;         paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Y_GEAR_NOSE ;        paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Y_GEAR_REAR;         paramCount =  paramCount+1;
 ParamValues{paramCount,1} = X_GEAR_REAR;         paramCount =  paramCount+1;
+%Misc
 ParamValues{paramCount,1} = '';                  paramCount =  paramCount+1;
-
 ParamValues{paramCount,1} = V_PAX_CABIN;         paramCount =  paramCount+1;
 ParamValues{paramCount,1} = Z_PAX_CABIN;         paramCount =  paramCount+1;
 ParamValues{paramCount,1} = RANGE;               paramCount =  paramCount+1;
@@ -212,6 +262,9 @@ ParamValues{paramCount,1} = CREW_SEATS_CP;       paramCount =  paramCount+1;
 ParamValues{paramCount,1} = P_CABIN_CRUISE;      paramCount =  paramCount+1;
 ParamValues{paramCount,1} = V_CARGO;             paramCount =  paramCount+1;
 ParamValues{paramCount,1} = V_FUEL;              paramCount =  paramCount+1;
+ParamValues{ paramCount,1} = MAIN_DECK_HEIGHT;                    paramCount =  paramCount+1;
+ParamValues{ paramCount,1} = LWR_DECK_HEIGHT;                    paramCount =  paramCount+1;
+
 % ParamValues{ paramCount,1} = ;                    paramCount =  paramCount+1;
 %% Create a Table with the parameters
 CopyPasteParams = table(ParamValues) ; 
