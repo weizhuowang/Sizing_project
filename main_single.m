@@ -4,7 +4,7 @@ clc,clear;
 addpath(genpath('.'))
 format shortG
 % ==================Inputs==================
-tmp_folder = 'C:\tempSolver\'; % Change this to any folder on your drive, PLEASE use non-OneDrive location
+tmp_folder = cd; % Change this to any folder on your drive, PLEASE use non-OneDrive location
 % tmp_folder = '/Users/askker/tmp_folder/'
 delete([tmp_folder,'*'])
 [fnInputs,fnIter] = deal([tmp_folder,'inputs.mat'],[tmp_folder,'iter.mat']);
@@ -21,7 +21,7 @@ guessmat = [77200,189071,0];
 % 787 Cal
 % hw7_solve(guessmat,[9.67,3805],fnInputs,fnIter,1,0);
 % Our Design
-hw7_solve(guessmat,[9,3660],fnInputs,fnIter,1,0);
+hw7_solve(guessmat,[8.7,3880],fnInputs,fnIter,1,0);
 % hw7_solve(guessmat,[7.5,3900],fnInputs,fnIter,1,0);
 
 % load soln (if you want to see an example of all the input and outputs)
